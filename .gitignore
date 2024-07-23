@@ -1,0 +1,4 @@
+#GoogleDriveAPIのJsonファイル
+client_secrets.json
+#python仮想環境
+venv/
