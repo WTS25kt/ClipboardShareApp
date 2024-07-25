@@ -26,7 +26,7 @@ if credentials_content:
 gauth.LoadCredentialsFile("credentials.json")
 
 if gauth.credentials is None or gauth.access_token_expired:
-    gauth.LocalWebserverAuth()  # 新しい認証情報を取得
+    gauth.CommandLineAuth()  # コマンドライン認証フローを使用
     gauth.SaveCredentialsFile("credentials.json")  # 認証情報を保存
 
 drive = GoogleDrive(gauth)
