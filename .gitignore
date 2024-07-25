@@ -1,5 +1,7 @@
 #GoogleDriveAPIのJsonファイル
 client_secrets.json
+#認証回数を減らすための認証情報保存ファイル
+credentials.json
 #python仮想環境
 venv/
 #txtをgitで管理しなければ気にならなそう
