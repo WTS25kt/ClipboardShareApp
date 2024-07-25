@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クリップボード共有アプリ</title>
+</head>
+<body>
+    <h1>クリップボード共有アプリ</h1>
+    <button id="saveBtn">クリップボードの内容を保存</button>
+    <button id="loadBtn">保存した内容をクリップボードにコピー</button>
+
+    <script>
+        document.getElementById('saveBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/save_clipboard', {
+                    method: 'POST'
+                });
+                const result = await response.json();
+                alert(result.message);
+            } catch (error) {
+                console.error('Error saving clipboard content:', error);
+            }
+        });
+
+        document.getElementById('loadBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/load_clipboard');
+                const result = await response.json();
+                alert(result.message);
+            } catch (error) {
+                console.error('Error loading clipboard content:', error);
+            }
+        });
+    </script>
+</body>
+</html>
