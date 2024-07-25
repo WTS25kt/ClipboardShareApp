@@ -2,6 +2,7 @@ import os
 import subprocess
 from flask import Flask, jsonify, render_template
 from dotenv import load_dotenv
+import logging
 
 app = Flask(__name__)
 
