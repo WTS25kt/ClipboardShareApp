@@ -6,3 +6,5 @@ credentials.json
 venv/
 #txtをgitで管理しなければ気にならなそう
 clipboard.txt
+#RenderのEnviromentにも同じく記載したがローカルでも起動するように環境変数に設定
+.env

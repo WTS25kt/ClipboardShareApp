@@ -1,8 +1,22 @@
+import os
 import subprocess
 from flask import Flask, jsonify, render_template
-import logging
+from dotenv import load_dotenv
 
 app = Flask(__name__)
+
+# .envファイルを読み込む
+load_dotenv()
+
+# 環境変数からファイルを書き出す
+secrets = os.getenv('SECRETS')
+credentials = os.getenv('CREDENTIALS')
+
+with open('client_secrets.json', 'w') as f:
+    f.write(secrets)
+
+with open('credentials.json', 'w') as f:
+    f.write(credentials)
 
 @app.route('/')
 def index():
