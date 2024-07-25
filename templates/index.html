@@ -1,36 +1,48 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>クリップボード共有アプリ</title>
+    <title>Clipboard Share App</title>
 </head>
 <body>
-    <h1>クリップボード共有アプリ</h1>
-    <button id="saveBtn">保存</button>
-    <button id="loadBtn">コピー</button>
+    <h1>Clipboard Share App</h1>
+    <button id="saveButton">Save Clipboard</button>
+    <button id="loadButton">Load Clipboard</button>
 
     <script>
-        document.getElementById('saveBtn').addEventListener('click', async () => {
-            try {
-                const response = await fetch('/save_clipboard', {
-                    method: 'POST'
-                });
-                const result = await response.json();
-                alert(result.message);
-            } catch (error) {
+        document.getElementById("saveButton").addEventListener("click", function() {
+            fetch('/save_clipboard', {
+                method: 'POST',
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
                 console.error('Error saving clipboard content:', error);
-            }
+                alert('Error saving clipboard content: ' + error.message);
+            });
         });
 
-        document.getElementById('loadBtn').addEventListener('click', async () => {
-            try {
-                const response = await fetch('/load_clipboard');
-                const result = await response.json();
-                alert(result.message);
-            } catch (error) {
+        document.getElementById("loadButton").addEventListener("click", function() {
+            fetch('/load_clipboard')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
                 console.error('Error loading clipboard content:', error);
-            }
+                alert('Error loading clipboard content: ' + error.message);
+            });
         });
     </script>
 </body>
