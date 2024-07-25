@@ -17,7 +17,7 @@ if client_secrets_content:
     with open('client_secrets.json', 'w') as f:
         f.write(client_secrets_content)
 
-コマンドライン認証フローを使用
+# コマンドライン認証フローを使用
 gauth.CommandLineAuth()
 
 drive = GoogleDrive(gauth)
@@ -29,5 +29,5 @@ def upload_clipboard_content():
     file.Upload()
     print("Clipboard content uploaded.")
 
-クリップボードの内容をアップロード
+# クリップボードの内容をアップロード
 upload_clipboard_content()
