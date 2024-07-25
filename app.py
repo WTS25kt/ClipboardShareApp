@@ -1,23 +1,28 @@
 import os
 import subprocess
+import logging
 from flask import Flask, jsonify, render_template
 from dotenv import load_dotenv
-import logging
 
 app = Flask(__name__)
 
 # .envファイルを読み込む
 load_dotenv()
 
+# ロギングの基本設定
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s')
+
 # 環境変数からファイルを書き出す
-secrets = os.getenv('SECRETS')
-credentials = os.getenv('CREDENTIALS')
+client_secrets_content = os.getenv('CLIENT_SECRETS_JSON')
+credentials_content = os.getenv('CREDENTIALS_JSON')
 
-with open('client_secrets.json', 'w') as f:
-    f.write(secrets)
+if client_secrets_content:
+    with open('client_secrets.json', 'w') as f:
+        f.write(client_secrets_content)
 
-with open('credentials.json', 'w') as f:
-    f.write(credentials)
+if credentials_content:
+    with open('credentials.json', 'w') as f:
+        f.write(credentials_content)
 
 @app.route('/')
 def index():
