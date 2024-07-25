@@ -1,5 +1,6 @@
 import subprocess
 from flask import Flask, jsonify, render_template
+import logging
 
 app = Flask(__name__)
 
@@ -14,8 +15,10 @@ def save_clipboard():
         if result.returncode == 0:
             return jsonify({"message": "Clipboard content uploaded."})
         else:
+            logging.error(f"Error uploading clipboard content: {result.stderr}")
             return jsonify({"message": "Error uploading clipboard content.", "error": result.stderr}), 500
     except Exception as e:
+        logging.error(f"Exception occurred: {str(e)}")
         return jsonify({"message": "Error uploading clipboard content.", "error": str(e)}), 500
 
 @app.route('/load_clipboard', methods=['GET'])
@@ -25,8 +28,10 @@ def load_clipboard():
         if result.returncode == 0:
             return jsonify({"message": "Clipboard content downloaded."})
         else:
+            logging.error(f"Error downloading clipboard content: {result.stderr}")
             return jsonify({"message": "Error downloading clipboard content.", "error": result.stderr}), 500
     except Exception as e:
+        logging.error(f"Exception occurred: {str(e)}")
         return jsonify({"message": "Error downloading clipboard content.", "error": str(e)}), 500
 
 if __name__ == '__main__':
