@@ -2,19 +2,18 @@ import os
 import pyperclip
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
-from flask import Flask, request, redirect, url_for, session
-from flask import jsonify
-from flask import Blueprint
-from flask import current_app as app
-from flask_session import Session
+from flask import Flask, request, redirect, url_for, session, jsonify, Blueprint
 import logging
 from dotenv import load_dotenv
+
+# .envファイルを読み込む
+load_dotenv()
 
 # Flaskアプリケーションのセットアップ
 bp = Blueprint('bygoogledrive_dw', __name__)
 
 # ログの設定
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelねame)s: %(message)s')
 
 @bp.route('/load_clipboard', methods=['GET'])
 def load_clipboard():
@@ -22,20 +21,12 @@ def load_clipboard():
         # Google Drive 認証
         gauth = GoogleAuth()
 
-        # 環境変数から認証情報を読み込む
+        # クライアントシークレットを環境変数から取得
         client_secrets_content = os.getenv('CLIENT_SECRETS_JSON')
-        credentials_content = os.getenv('CREDENTIALS_JSON')
+        with open('client_secrets.json', 'w') as f:
+            f.write(client_secrets_content)
 
-        if client_secrets_content:
-            with open('client_secrets.json', 'w') as f:
-                f.write(client_secrets_content)
-
-        if credentials_content:
-            with open('credentials.json', 'w') as f:
-                f.write(credentials_content)
-
-        # 保存された認証情報を使用
-        gauth.LoadCredentialsFile("credentials.json")
+        gauth.LoadClientConfigFile("client_secrets.json")
 
         if gauth.credentials is None or gauth.access_token_expired:
             auth_url = gauth.GetAuthUrl()
@@ -64,11 +55,11 @@ def load_clipboard():
 def oauth2callback():
     try:
         gauth = GoogleAuth()
-        gauth.LoadCredentialsFile("credentials.json")
+
+        gauth.LoadClientConfigFile("client_secrets.json")
 
         if 'code' in request.args:
             gauth.Auth(request.args.get('code'))
-            gauth.SaveCredentialsFile("credentials.json")
             return redirect(url_for('bygoogledrive_dw.load_clipboard'))
         else:
             return jsonify({"message": "No code found in redirect"}), 500

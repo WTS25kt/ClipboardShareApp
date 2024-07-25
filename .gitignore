@@ -8,4 +8,8 @@ venv/
 clipboard.txt
 #RenderのEnviromentにも同じく記載したがローカルでも起動するように環境変数に設定
 .env
+
+#
 client_secret_793628051765-q2h8v81edgggsc5tg92b8pfnvla5j48k.apps.googleusercontent.com.json
+d_client_secrets.json
+d_credentials.json
