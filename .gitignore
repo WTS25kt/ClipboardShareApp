@@ -1,8 +1,8 @@
 #GoogleDriveAPIのJsonファイル
 client_secrets.json
+#ディレクトリに自動で生成されるのでignore
+credentials.json
 #python仮想環境
 venv/
-#txtをgitで管理しなければ気にならなそう
+#ディレクトリに自動で生成されるのでignore
 clipboard.txt
-#削除したので使わなかったけど、セキュリティ的に入れるの良く無いから記載
-credentials.json
