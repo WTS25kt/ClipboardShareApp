@@ -4,3 +4,5 @@ client_secrets.json
 venv/
 #txtをgitで管理しなければ気にならなそう
 clipboard.txt
+#削除したので使わなかったけど、セキュリティ的に入れるの良く無いから記載
+credentials.json
